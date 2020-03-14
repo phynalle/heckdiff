@@ -35,7 +35,7 @@ fn main() {
     );
     for diff in diffs {
         match diff {
-            NotChanged(s) | Add(_, s) | Modify(_, s, _) => {
+            NotChanged(s) | Add(_, s) | Modify(_, _, s) => {
                 print!("{}", s);
             }
             Remove(_, _) => {}
