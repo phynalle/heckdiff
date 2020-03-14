@@ -1,3 +1,4 @@
+use std::borrow::Cow;
 use std::collections::HashMap;
 
 use difflib::sequencematcher::Match;
@@ -124,31 +125,30 @@ pub fn diff(base_text: &str, mine_text: &str, yours_text: &str) -> Vec<Differenc
     }
 }
 
-struct Munge {
-    lines: Vec<String>,
-    line_hashes: HashMap<String, usize>,
+struct Munge<'a> {
+    lines: Vec<Cow<'a, str>>,
+    line_hashes: HashMap<&'a str, usize>,
 }
 
-impl Munge {
-    fn new() -> Munge {
+impl<'a> Munge<'a> {
+    fn new() -> Munge<'a> {
         let mut lines = Vec::new();
         let line_hashes = HashMap::new();
 
-        lines.push(String::new());
+        lines.push(String::new().into());
         Munge { lines, line_hashes }
     }
 
-    fn lines_to_nums<S: AsRef<str>>(&mut self, text: S) -> Vec<usize> {
+    fn lines_to_nums(&mut self, text: &'a str) -> Vec<usize> {
         let mut nums: Vec<_> = text
-            .as_ref()
             .lines()
             .map(|line| match self.line_hashes.get(line) {
                 Some(i) => *i,
                 None => {
                     let next_num = self.lines.len();
 
-                    self.lines.push(line.to_string());
-                    self.line_hashes.insert(line.to_string(), next_num);
+                    self.lines.push(line.into());
+                    self.line_hashes.insert(line.into(), next_num);
                     next_num
                 }
             })
