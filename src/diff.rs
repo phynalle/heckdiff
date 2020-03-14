@@ -34,7 +34,6 @@ pub fn diff(base_text: &str, mine_text: &str, yours_text: &str) -> Vec<Differenc
     let (mut ia, mut ib) = (0, 0);
     let mut prev_a_offset = 0;
     let mut prev_b_offset = 0;
-
     let mut prev_common = Range::START;
 
     let mut result = Vec::new();
@@ -146,7 +145,7 @@ impl<'a> Munge<'a> {
                     let next_num = self.lines.len();
 
                     self.lines.push(line.into());
-                    self.line_hashes.insert(line.into(), next_num);
+                    self.line_hashes.insert(line, next_num);
                     next_num
                 }
             })
@@ -157,7 +156,7 @@ impl<'a> Munge<'a> {
 
     fn nums_to_lines(&self, nums: &[usize]) -> String {
         let mut text = String::new();
-        for line in nums.into_iter().map(|&num| &self.lines[num]) {
+        for line in nums.iter().map(|&num| &self.lines[num]) {
             text.push_str(line);
             text.push('\n');
         }
