@@ -4,7 +4,10 @@ use std::path::{Path, PathBuf};
 
 use structopt::StructOpt;
 
-use heckdiff::{diff, Difference::*};
+mod diff;
+mod range;
+
+use diff::{diff, Difference::*};
 
 #[derive(Debug, StructOpt)]
 struct Cli {

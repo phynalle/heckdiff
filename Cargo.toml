@@ -1,11 +1,11 @@
 [package]
 name = "heckdiff"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["phynalle <phynalism@gmail.com>"]
 edition = "2018"
 license = "MIT"
 readme = "README.md"
-description = "A three-way merge library for all the extension for file (not yet, my hope)"
+description = "A 3-way merge tool for all the extension for file (not yet, my hope)"
 repository = "https://github.com/phynalle/heckdiff"
 keywords = ["diff", "merge"]
 
@@ -13,11 +13,4 @@ keywords = ["diff", "merge"]
 
 [dependencies]
 difflib = "0.4"
-
-[dev-dependencies]
 structopt = "0.2"
-
-[[example]]
-name = "merge"
-crate-type = ["bin"]
-
