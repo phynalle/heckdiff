@@ -3,6 +3,11 @@ name = "heckdiff"
 version = "0.1.0"
 authors = ["phynalle <phynalism@gmail.com>"]
 edition = "2018"
+license = "MIT"
+readme = "README.md"
+description = "A three-way merge library for all the extension for file (not yet, my hope)"
+repository = "https://github.com/phynalle/heckdiff"
+keywords = ["diff", "merge"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
