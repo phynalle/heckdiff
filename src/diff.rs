@@ -47,15 +47,15 @@ pub fn diff(base_text: &str, mine_text: &str, yours_text: &str) -> Vec<Differenc
         if let Some(common) = a_block.intersect(b_block) {
             let o = common
                 .get_between(prev_common)
-                .map(|between| munge.nums_to_lines(&base[between.0..between.1]));
+                .map(|between| munge.nums_to_lines(&base[between]));
             let a = common
                 .transform(a_offset)
                 .get_between(prev_common.transform(prev_a_offset))
-                .map(|between| munge.nums_to_lines(&mine[between.0..between.1]));
+                .map(|between| munge.nums_to_lines(&mine[between]));
             let b = common
                 .transform(b_offset)
                 .get_between(prev_common.transform(prev_b_offset))
-                .map(|between| munge.nums_to_lines(&yours[between.0..between.1]));
+                .map(|between| munge.nums_to_lines(&yours[between]));
 
             if o == b && a != b {
                 // changes in A
@@ -75,9 +75,7 @@ pub fn diff(base_text: &str, mine_text: &str, yours_text: &str) -> Vec<Differenc
                 result.push(detect(Author::Both, o, a));
             }
 
-            result.push(Difference::NotChanged(
-                munge.nums_to_lines(&base[common.0..common.1]),
-            ));
+            result.push(Difference::NotChanged(munge.nums_to_lines(&base[common])));
 
             prev_common = common;
             prev_a_offset = a_offset;

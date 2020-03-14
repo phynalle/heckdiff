@@ -1,3 +1,5 @@
+use std::ops::Index;
+
 #[derive(Clone, Copy, Debug)]
 pub struct Range(pub usize, pub usize);
 
@@ -36,5 +38,13 @@ impl Range {
             (self.0 as isize + offset) as usize,
             (self.1 as isize + offset) as usize,
         )
+    }
+}
+
+impl<T> Index<Range> for Vec<T> {
+    type Output = [T];
+
+    fn index(&self, range: Range) -> &Self::Output {
+        &self[range.0..range.1]
     }
 }
